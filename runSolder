@@ -1,0 +1,35 @@
+	static void runSoldier(RobotController rc) throws GameActionException {
+		// Try to attack someone
+		int radius = rc.getType().actionRadiusSquared;
+		Team opponent = rc.getTeam().opponent();
+		RobotInfo[] enemies = rc.senseNearbyRobots(radius, opponent);
+		for (int am = 0; am < enemies.length; am++)
+			if (enemies[am].equals(RobotType.MINER)) {
+				rc.getLocation().compareTo(enemies[am].getLocation());
+
+
+				MapLocation getReadyAttack = enemies[am].location;
+				if (rc.canAttack(getReadyAttack)) {
+					rc.attack(getReadyAttack);
+				}
+
+			}
+
+		if (enemies.length > 0) {
+			MapLocation toAttack = enemies[0].location;
+			if (rc.canAttack(toAttack)) {
+				rc.attack(toAttack);
+			}
+		}
+
+
+		MapLocation solderLoc = rc.getLocation();
+
+
+		Direction dir = directions[rng.nextInt(directions.length)];
+		if (rc.canMove(dir)) {
+			rc.move(dir);
+
+		}
+
+	}
